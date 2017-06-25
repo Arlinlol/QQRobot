@@ -33,8 +33,8 @@ import com.google.gson.Gson;
 
 public class MyHttpClient {
 	private static final Logger logger = LoggerFactory.getLogger(MyHttpClient.class);
-	private static final int MAX_TOTAL = Const.MAX_TOTAL;
-	private static final int MAX_PER_ROUTE = Const.MAX_PER_ROUTE;
+	private static final int MAX_TOTAL = Const.MAX_TOTAL;// httpclient线程池最大数量
+	private static final int MAX_PER_ROUTE = Const.MAX_PER_ROUTE;//每个路由并发请求最大数量
 	private static final String ENCODING = Const.ENCODING_UTF_8;
 	private static final Gson gson = new Gson();
 	
@@ -142,7 +142,7 @@ public class MyHttpClient {
 				logger.debug("httpResponse:{}", entityStr);
 			}
 			myHttpResponse.setCookies(cookieStore.getCookies());
-//			logger.debug("cookies:{}", myHttpResponse.getCookies());
+			logger.debug("cookies:{}", myHttpResponse.getCookies());
 			EntityUtils.consume(entity);
 		} catch (ParseException | IOException e) {
 			logger.error("httpRequest请求/解析异常", e);

@@ -1,5 +1,7 @@
 package org.cool.qqrobot.dao.cache;
 
+import java.net.PasswordAuthentication;
+
 import org.cool.qqrobot.common.Const;
 import org.cool.qqrobot.entity.ProcessData;
 import org.slf4j.Logger;
@@ -28,6 +30,12 @@ public class RedisDao {
 		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
 		jedisPoolConfig.setMaxActive(Const.MAX_ACTIVE);
 		this.jedisPool = new JedisPool(jedisPoolConfig, ip, port);
+	}
+	
+	public RedisDao(String ip, int port,String password) {
+		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+		jedisPoolConfig.setMaxActive(Const.MAX_ACTIVE);
+		this.jedisPool = new JedisPool(jedisPoolConfig, ip, port,6000,password);
 	}
 	
 	private RuntimeSchema<ProcessData> schema = RuntimeSchema.createFrom(ProcessData.class);

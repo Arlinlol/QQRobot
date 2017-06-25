@@ -77,6 +77,7 @@ public class RobotServiceImpl implements RobotService {
 		return imageCode;
 	}
 	
+	//二维码验证检查
 	private void loginCheck(ProcessData processData) {
 		logger.info("|{}|--二维码验证中", ProcessVar.getProcessId());
 		ThreadPool.getInstance().getFixedThreadPool().execute(new Runnable() {
@@ -99,7 +100,7 @@ public class RobotServiceImpl implements RobotService {
 						processData.setGetCode(false);
 					}
 					threadSleep();
-					if (firstLoginSuccess) {
+					if (firstLoginSuccess) {//如果登录二维码失效了
 						break;
 					}
 					// 轮询时间结束，用户还未扫描登录，自动标识为登录失败（不然下次不能获取二维码，刷新页面二维码不变）
@@ -110,7 +111,7 @@ public class RobotServiceImpl implements RobotService {
 			}
 		});
 	}
-	
+	//登录成功
 	private boolean firstLogin(ProcessData processData, MyHttpResponse checkResponse) {
 		String[] checkResponseArr = checkResponse.getTextStr().split(",");
 		if (checkResponseArr[0].contains(Const.SUCCESS_CODE.toString())) {
@@ -127,7 +128,7 @@ public class RobotServiceImpl implements RobotService {
 				processData.setGetCode(false);
 				logger.error("first登陆异常", e);
 			}
-			if (MyHttpResponse.S_OK == firstLoginResponse.getStatus()) {
+			if (MyHttpResponse.S_OK == firstLoginResponse.getStatus()) {//登录成功
 				processData.setPtwebqq(firstLoginResponse.getCookiesValue(Const.PTWEBQQ));
 				getVfwebqq(processData);
 				return true;
@@ -274,6 +275,7 @@ public class RobotServiceImpl implements RobotService {
 				MyHttpResponse pollMessageResponse = new MyHttpResponse();
 				try {
 					pollMessageResponse = processData.getMyHttpClient().execute(pollMessageRequest);
+					logger.info("收到消息:{}",pollMessageResponse.getTextStr());
 				} catch (Exception e) {
 					processData.setGetCode(false);
 					logger.error("poolMessage异常", e);

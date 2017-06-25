@@ -16,6 +16,7 @@ public class MyHttpRequest {
 	private String url;
 	// 默认GET请求
 	private String method = HttpGet.METHOD_NAME;
+	
 	@SuppressWarnings("serial")
 	private Map<String, String> headerMap = new HashMap<String, String>(){
 			{
