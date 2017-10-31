@@ -60,6 +60,6 @@ public class sessionInterceptor implements HandlerInterceptor {
 		}
 		Gson gson = new Gson();
     	out.print(gson.toJson(new RobotResult<Map<String, Object>>(true, RobotCodeEnums.SESSION_EXPIRED.getCode(), RobotCodeEnums.SESSION_EXPIRED.getCodeInfo())));
-	    out.close();
+	   out.close();
 	}
 }

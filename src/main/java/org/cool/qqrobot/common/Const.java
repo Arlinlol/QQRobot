@@ -9,6 +9,7 @@ public class Const {
 	 * session Key
 	 */
 	public static final String PROCESS_DATA = "PROCESS_DATA";
+	public static final String Z800_PROCESS_DATA = "Z800_PROCESS_DATA";
 	/**
 	 * httpclient线程池最大数量
 	 */
