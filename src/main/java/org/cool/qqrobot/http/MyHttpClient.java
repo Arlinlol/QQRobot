@@ -122,6 +122,9 @@ public class MyHttpClient {
 			entity = response.getEntity();
 			// 图灵机器人API返回没有contentType
 			contentType = entity.getContentType() == null ? "" : entity.getContentType().getValue().toLowerCase();
+			if(contentType.equals("")&&myHttpRequest.getUrl().contains("taobao")){//jsonp返回
+				contentType = MyHttpResponse.CONTENT_TYPE_SCRIPT;
+			}
 			myHttpResponse.setContentType(contentType);
 			// 返回图片资源
 			if (contentType.contains(MyHttpResponse.CONTENT_TYPE_IMAGE)) {
@@ -136,6 +139,7 @@ public class MyHttpClient {
 				} else {
 					// 原始JSON
 					myHttpResponse.setTextStr(entityStr);
+					
 					// JSON结构转换成Map
 					myHttpResponse.setJsonMap(gson.fromJson(entityStr, Map.class));
 				}
@@ -143,7 +147,7 @@ public class MyHttpClient {
 			}
 			myHttpResponse.setCookies(cookieStore.getCookies());
 			logger.debug("cookies:{}", myHttpResponse.getCookies());
-			EntityUtils.consume(entity);
+			EntityUtils.consume(entity);//关闭entity流
 		} catch (ParseException | IOException e) {
 			logger.error("httpRequest请求/解析异常", e);
 			throw e;

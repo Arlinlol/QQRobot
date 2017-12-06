@@ -26,6 +26,7 @@
 			<mvc:exclude-mapping path="/onlineCount"/>
 			<mvc:exclude-mapping path="/*/offline"/>
 			<mvc:exclude-mapping path="/zhe800/**"/>
+			<mvc:exclude-mapping path="/taobao/**"/>
 			<bean class="org.cool.qqrobot.interceptor.sessionInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
